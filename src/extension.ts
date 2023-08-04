@@ -4,7 +4,8 @@ import { Config } from './config';
 
 export function activate(context: ExtensionContext) {
 	context.subscriptions.push(
-		commands.registerCommand('zv-copy-utilities.copyFileName', copyFileName)
+		commands.registerCommand('zv-copy-utilities.copyFileName', copyFileName),
+		commands.registerCommand('zv-copy-utilities.copyParentDir', copyParentDirectory)
 	);
 }
 
@@ -36,4 +37,19 @@ async function copyFileName(uri?: Uri) {
 			await env.clipboard.writeText(parsedPath.base);
 			break;
 	}
+}
+
+async function copyParentDirectory() {
+	const copyType = Config.getCopyParentDir();
+	if (copyType === 'Hidden') {
+		return;
+	}
+
+	const fpath = window.activeTextEditor?.document.fileName;
+	if (!fpath) {
+		return;
+	}
+
+	const dirPath = path.parse(fpath).dir;
+	await env.clipboard.writeText(path.parse(dirPath).name);
 }

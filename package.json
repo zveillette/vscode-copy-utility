@@ -20,14 +20,10 @@
         "enablement": "config.zv-copy-utilities.copyFileName != 'Hidden'"
       },
       {
-        "command": "zv-copy-utilities.copyParentDirectory",
+        "command": "zv-copy-utilities.copyParentDir",
         "title": "Directory",
-        "category": "Copy Utilities"
-      },
-      {
-        "command": "zv-copy-utilities.copyParentDirectory",
-        "title": "Directory",
-        "category": "Copy Utilities"
+        "category": "Copy Utilities",
+        "enablement": "config.zv-copy-utilities.copyParentDir != 'Hidden'"
       }
     ],
     "menus": {
@@ -50,6 +46,11 @@
           "type": "string",
           "default": "File name",
           "enum": ["Hidden", "File name", "File name & extension"]
+        },
+        "zv-copy-utilities.copyParentDir": {
+          "type": "string",
+          "default": "Parent directory",
+          "enum": ["Hidden", "Parent directory"]
         }
       }
     }
