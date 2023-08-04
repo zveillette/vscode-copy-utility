@@ -14,10 +14,45 @@
   "contributes": {
     "commands": [
       {
-        "command": "zv-copy-utilities.helloWorld",
-        "title": "Hello World"
+        "command": "zv-copy-utilities.copyFileName",
+        "title": "File name",
+        "category": "Copy Utilities",
+        "enablement": "config.zv-copy-utilities.copyFileName != 'Hidden'"
+      },
+      {
+        "command": "zv-copy-utilities.copyParentDirectory",
+        "title": "Directory",
+        "category": "Copy Utilities"
+      },
+      {
+        "command": "zv-copy-utilities.copyParentDirectory",
+        "title": "Directory",
+        "category": "Copy Utilities"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [{
+        "submenu": "zv-copy-utilities.copyUtilities"
+      }],
+      "zv-copy-utilities.copyUtilities":[{
+        "command": "zv-copy-utilities.copyFileName",
+        "when": "config.zv-copy-utilities.copyFileName != 'Hidden'"
+      }]
+    },
+    "submenus": [{
+      "id": "zv-copy-utilities.copyUtilities",
+      "label": "Copy Utilities"
+    }],
+    "configuration": {
+      "title": "Copy Utilities",
+      "properties": {
+        "zv-copy-utilities.copyFileName": {
+          "type": "string",
+          "default": "File name",
+          "enum": ["Hidden", "File name", "File name & extension"]
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

@@ -1,26 +1,39 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import { window, commands, ExtensionContext, Uri, env } from 'vscode';
+import * as path from 'path';
+import { Config } from './config';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "zv-copy-utilities" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('zv-copy-utilities.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from zv-copy-utilities!');
-	});
-
-	context.subscriptions.push(disposable);
+export function activate(context: ExtensionContext) {
+	context.subscriptions.push(
+		commands.registerCommand('zv-copy-utilities.copyFileName', copyFileName)
+	);
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
+
+
+async function copyFileName(uri?: Uri) {
+	const copyType = Config.getCopyFileName();
+	if (copyType === 'Hidden') {
+		return;
+	}
+
+	let fpath = uri?.fsPath;
+	if (!fpath) {
+		fpath = window.activeTextEditor?.document.fileName;
+	}
+
+	if (!fpath) {
+		return;
+	}
+
+	const parsedPath = path.parse(fpath);
+	switch (copyType) {
+		case 'File name':
+			await env.clipboard.writeText(parsedPath.name);
+			break;
+		case 'File name & extension':
+			await env.clipboard.writeText(parsedPath.base);
+			break;
+	}
+}
