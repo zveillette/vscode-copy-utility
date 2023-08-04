@@ -1,7 +1,11 @@
 {
   "name": "zv-copy-utilities",
   "displayName": "zv-copy-utilities",
-  "description": "Different copy options for file",
+  "description": "Add quick commands to copy to clipboard.",
+  "publisher": "zveillette",
+  "repository": {
+    "url": "https://github.com/zveillette/vscode-copy-utility"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.80.0"
