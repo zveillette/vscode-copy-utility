@@ -1,12 +1,13 @@
 {
   "name": "zv-copy-utilities",
-  "displayName": "zv-copy-utilities",
+  "displayName": "Copy Utilities",
   "description": "Add quick commands to copy to clipboard.",
   "publisher": "zveillette",
   "repository": {
     "url": "https://github.com/zveillette/vscode-copy-utility"
   },
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -19,42 +20,94 @@
     "commands": [
       {
         "command": "zv-copy-utilities.copyFileName",
-        "title": "File name",
+        "title": "Copy file name",
         "category": "Copy Utilities",
         "enablement": "config.zv-copy-utilities.copyFileName != 'Hidden'"
       },
       {
         "command": "zv-copy-utilities.copyParentDir",
-        "title": "Directory",
+        "title": "Copy directory",
         "category": "Copy Utilities",
         "enablement": "config.zv-copy-utilities.copyParentDir != 'Hidden'"
+      },
+      {
+        "command": "zv-copy-utilities.copySelectionAsMd",
+        "title": "Copy selection as mark down",
+        "category": "Copy Utilities",
+        "enablement": "config.zv-copy-utilities.copySelectionAsMd != 'Hidden'"
       }
     ],
     "menus": {
-      "explorer/context": [{
-        "submenu": "zv-copy-utilities.copyUtilities"
-      }],
-      "zv-copy-utilities.copyUtilities":[{
-        "command": "zv-copy-utilities.copyFileName",
-        "when": "config.zv-copy-utilities.copyFileName != 'Hidden'"
-      }]
+      "explorer/context": [
+        {
+          "submenu": "zv-copy-utilities.explorerCopyUtilities"
+        }
+      ],
+      "editor/context": [
+        {
+          "submenu": "zv-copy-utilities.editorCopyUtilities"
+        }
+      ],
+      "zv-copy-utilities.explorerCopyUtilities": [
+        {
+          "command": "zv-copy-utilities.copyFileName",
+          "when": "config.zv-copy-utilities.copyFileName != 'Hidden'"
+        }
+      ],
+      "zv-copy-utilities.editorCopyUtilities": [
+        {
+          "command": "zv-copy-utilities.copyFileName",
+          "when": "config.zv-copy-utilities.copyFileName != 'Hidden'"
+        },
+        {
+          "command": "zv-copy-utilities.copyParentDir",
+          "when": "config.zv-copy-utilities.copyParentDirectory != 'Hidden'"
+        },
+        {
+          "command": "zv-copy-utilities.copySelectionAsMd",
+          "when": "config.zv-copy-utilities.copySelectionAsMarkdown != 'Hidden'"
+        }
+      ]
     },
-    "submenus": [{
-      "id": "zv-copy-utilities.copyUtilities",
-      "label": "Copy Utilities"
-    }],
+    "submenus": [
+      {
+        "id": "zv-copy-utilities.explorerCopyUtilities",
+        "label": "Copy Utilities"
+      },
+      {
+        "id": "zv-copy-utilities.editorCopyUtilities",
+        "label": "Copy Utilities"
+      }
+    ],
     "configuration": {
       "title": "Copy Utilities",
       "properties": {
         "zv-copy-utilities.copyFileName": {
           "type": "string",
           "default": "File name",
-          "enum": ["Hidden", "File name", "File name & extension"]
+          "enum": [
+            "Hidden",
+            "File name",
+            "File name & extension"
+          ]
         },
-        "zv-copy-utilities.copyParentDir": {
+        "zv-copy-utilities.copyParentDirectory": {
           "type": "string",
           "default": "Parent directory",
-          "enum": ["Hidden", "Parent directory"]
+          "enum": [
+            "Hidden",
+            "Parent directory"
+          ]
+        },
+        "zv-copy-utilities.copySelectionAsMarkdown": {
+          "type": "string",
+          "default": "Code & language",
+          "enum": [
+            "Hidden",
+            "Code",
+            "Code & language",
+            "Code, language & file"
+          ]
         }
       }
     }
