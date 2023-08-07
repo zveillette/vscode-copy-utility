@@ -20,19 +20,19 @@
     "commands": [
       {
         "command": "zv-copy-utilities.copyFileName",
-        "title": "Copy file name",
+        "title": "Copy File Name",
         "category": "Copy Utilities",
         "enablement": "config.zv-copy-utilities.copyFileName != 'Hidden'"
       },
       {
         "command": "zv-copy-utilities.copyParentDir",
-        "title": "Copy directory",
+        "title": "Copy Directory",
         "category": "Copy Utilities",
         "enablement": "config.zv-copy-utilities.copyParentDir != 'Hidden'"
       },
       {
         "command": "zv-copy-utilities.copySelectionAsMd",
-        "title": "Copy selection as mark down",
+        "title": "Copy Selection as Markdown",
         "category": "Copy Utilities",
         "enablement": "config.zv-copy-utilities.copySelectionAsMd != 'Hidden'"
       }
@@ -57,14 +57,17 @@
       "zv-copy-utilities.editorCopyUtilities": [
         {
           "command": "zv-copy-utilities.copyFileName",
+          "group": "CopyUtilities@1",
           "when": "config.zv-copy-utilities.copyFileName != 'Hidden'"
         },
         {
           "command": "zv-copy-utilities.copyParentDir",
+          "group": "CopyUtilities@2",
           "when": "config.zv-copy-utilities.copyParentDirectory != 'Hidden'"
         },
         {
           "command": "zv-copy-utilities.copySelectionAsMd",
+          "group": "CopyUtilities@3",
           "when": "config.zv-copy-utilities.copySelectionAsMarkdown != 'Hidden'"
         }
       ]
